@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol FocusStateCompliant: Hashable {
+public protocol FocusStateCompliant: Hashable {
     static var last: Self { get }
     var next: Self { get }
 }

@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-@propertyWrapper struct FocusStateLegacy<Value>: DynamicProperty where Value: Hashable {
+@propertyWrapper public struct FocusStateLegacy<Value>: DynamicProperty where Value: Hashable {
     @State var form: Value
     
-    var projectedValue: Binding<Value> {
+    public var projectedValue: Binding<Value> {
         Binding(
             get: { wrappedValue },
             set: { wrappedValue = $0 }
         )
     }
     
-    var wrappedValue: Value {
+    public var wrappedValue: Value {
         get {
             return form
         }
@@ -27,7 +27,7 @@ import SwiftUI
         }
     }
     
-    init(wrappedValue: Value) {
+    public init(wrappedValue: Value) {
         self._form = State(initialValue: wrappedValue)
     }
 }

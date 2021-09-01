@@ -17,12 +17,12 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
     }
 }
 
-struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier {
+public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier {
     @Binding var focusedField: Value
     var equals: Value
     @State var observer = TextFieldObserver()
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .introspectTextField { tf in
                 tf.delegate = observer
