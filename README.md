@@ -4,7 +4,7 @@ Focuser allows to focus SwiftUI text fields dynamically and implements ability m
 
 ## Preview
 
-![Preview gif of Focuser](./public/preview/giphy.gif)
+![Preview gif of Focuser](public/preview/giphy.gif)
 
 ## Example
 
