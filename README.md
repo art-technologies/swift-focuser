@@ -4,6 +4,8 @@ Focuser allows to focus SwiftUI text fields dynamically and implements ability m
 
 ## Preview
 
+![Preview gif of Focuser](./public/preview/giphy.gif)
+
 ## Example
 
 Feel free to download full Xcode example project in `Example` folder.
@@ -71,6 +73,18 @@ struct ContentView: View {
 ```
 
 Here we introduced "Focus Password" button showing how to focus a specific text field dynamically.
+
+## Caviets
+
+Make sure to apply `.focusedLegacy` modifier as the last modifier to `TextField`. I will make a fix later on to aleviate the order issue.
+
+```swift
+TextField("Username", text: $username)
+   .padding(9)
+   .background(Color(.systemGray6))
+   .cornerRadius(8)
+   .focusedLegacy($focusedField, equals: .username)
+```
 
 ## To do
 
