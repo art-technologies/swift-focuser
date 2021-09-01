@@ -1,6 +1,6 @@
 # Focuser
 
-Focuser allows to focus SwiftUI text fields dynamically and implements ability move go through the form using Keyboard for iOS 13 and above. Implementation is designed to follow [iOS 15 `@FocusState`](https://developer.apple.com/documentation/swiftui/focusstate) property wrapper. Since most of us cannot update our apps to serve iOS 15 exclusively `Focuser` will provide an easy way to accomplish the same thing.
+Focuser allows to focus SwiftUI text fields dynamically and implements ability move go through the form using Keyboard for iOS 13 and iOS 14. Implementation is designed to follow [Apple `@FocusState`](https://developer.apple.com/documentation/swiftui/focusstate) property wrapper. Since most of us cannot update our apps to serve iOS 15 exclusively `Focuser` will provide an easy way to accomplish the same thing.
 
 ## Preview
 
