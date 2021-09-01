@@ -74,7 +74,7 @@ struct ContentView: View {
 
 Here we introduced "Focus Password" button showing how to focus a specific text field dynamically.
 
-## Caviets
+## Caveats
 
 Make sure to apply `.focusedLegacy` modifier as the last modifier to `TextField`. I will make a fix later on to aleviate the order issue.
 
