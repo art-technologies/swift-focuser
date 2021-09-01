@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "Focuser",
-        "repositoryURL": "https://github.com/art-technologies/swift-focuser",
+        "repositoryURL": "git@github.com:art-technologies/swift-focuser.git",
         "state": {
-          "branch": "main",
-          "revision": "1be648b0d5e2e198c7d8a998109b031e57ffff95",
-          "version": null
+          "branch": null,
+          "revision": "077c3c6f5e032ad4a752b085533e1cb7a3e59751",
+          "version": "0.1.0"
         }
       },
       {

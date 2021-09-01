@@ -13,7 +13,7 @@
 		FFDC73A926DF94DE00C1F0D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDC73A826DF94DE00C1F0D0 /* Assets.xcassets */; };
 		FFDC73AC26DF94DE00C1F0D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDC73AB26DF94DE00C1F0D0 /* Preview Assets.xcassets */; };
 		FFDC73AF26DF94DE00C1F0D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFDC73AD26DF94DE00C1F0D0 /* LaunchScreen.storyboard */; };
-		FFDC73C226DFD97C00C1F0D0 /* Focuser in Frameworks */ = {isa = PBXBuildFile; productRef = FFDC73C126DFD97C00C1F0D0 /* Focuser */; };
+		FFDC73C626DFE61F00C1F0D0 /* Focuser in Frameworks */ = {isa = PBXBuildFile; productRef = FFDC73C526DFE61F00C1F0D0 /* Focuser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFDC73C226DFD97C00C1F0D0 /* Focuser in Frameworks */,
+				FFDC73C626DFE61F00C1F0D0 /* Focuser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +94,7 @@
 			);
 			name = focusstate;
 			packageProductDependencies = (
-				FFDC73C126DFD97C00C1F0D0 /* Focuser */,
+				FFDC73C526DFE61F00C1F0D0 /* Focuser */,
 			);
 			productName = focusstate;
 			productReference = FFDC739F26DF94DC00C1F0D0 /* focusstate.app */;
@@ -114,7 +114,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FFDC739A26DF94DC00C1F0D0 /* Build configuration list for PBXProject "focusstate" */;
+			buildConfigurationList = FFDC739A26DF94DC00C1F0D0 /* Build configuration list for PBXProject "Example" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -124,7 +124,7 @@
 			);
 			mainGroup = FFDC739626DF94DC00C1F0D0;
 			packageReferences = (
-				FFDC73C026DFD97C00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */,
+				FFDC73C426DFE61F00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */,
 			);
 			productRefGroup = FFDC73A026DF94DC00C1F0D0 /* Products */;
 			projectDirPath = "";
@@ -332,7 +332,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FFDC739A26DF94DC00C1F0D0 /* Build configuration list for PBXProject "focusstate" */ = {
+		FFDC739A26DF94DC00C1F0D0 /* Build configuration list for PBXProject "Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FFDC73B126DF94DE00C1F0D0 /* Debug */,
@@ -353,20 +353,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FFDC73C026DFD97C00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */ = {
+		FFDC73C426DFE61F00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/art-technologies/swift-focuser";
+			repositoryURL = "git@github.com:art-technologies/swift-focuser.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FFDC73C126DFD97C00C1F0D0 /* Focuser */ = {
+		FFDC73C526DFE61F00C1F0D0 /* Focuser */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FFDC73C026DFD97C00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */;
+			package = FFDC73C426DFE61F00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */;
 			productName = Focuser;
 		};
 /* End XCSwiftPackageProductDependency section */

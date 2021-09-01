@@ -6,6 +6,16 @@ Focuser allows to focus SwiftUI text fields dynamically and implements ability m
 
 ![Preview gif of Focuser](./public/preview.gif)
 
+## Install
+
+We are going to maintain Focuser and extend its functionality in the near future. You can use Focuser in your project using SPM
+
+`File` > `Swift Packages` > `Add Package Dependency` and use
+
+```
+git@github.com:art-technologies/swift-focuser.git
+```
+
 ## Example
 
 Feel free to download full Xcode example project in `Example` folder.
