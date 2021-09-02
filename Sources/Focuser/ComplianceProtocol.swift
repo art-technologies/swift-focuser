@@ -9,5 +9,5 @@ import Foundation
 
 public protocol FocusStateCompliant: Hashable {
     static var last: Self { get }
-    var next: Self { get }
+    var next: Self? { get }
 }

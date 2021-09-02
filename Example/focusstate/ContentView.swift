@@ -9,7 +9,7 @@ import SwiftUI
 import Focuser
 
 enum FormFields {
-    case none, username, password, name
+    case username, password, name
 }
 
 extension FormFields: FocusStateCompliant {
@@ -18,19 +18,19 @@ extension FormFields: FocusStateCompliant {
         .name
     }
     
-    var next: FormFields {
+    var next: FormFields? {
         switch self {
         case .username:
             return .password
         case .password:
             return .name
-        default: return .none
+        default: return nil
         }
     }
 }
 
 struct ContentView: View {
-    @FocusStateLegacy var focusedField: FormFields = .username
+    @FocusStateLegacy var focusedField: FormFields?
     @State var username = ""
     @State var password = ""
     @State var name = ""
@@ -56,7 +56,7 @@ struct ContentView: View {
                 .focusedLegacy($focusedField, equals: .name)
             
             Button(action: {
-                focusedField = .password
+                focusedField = FormFields.password
             }) {
                 Text("Focus Password")
             }

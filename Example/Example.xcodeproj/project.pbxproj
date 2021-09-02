@@ -17,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FFD9F4C226E0AA1300C74C49 /* swift-focuser */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "swift-focuser"; path = ..; sourceTree = "<group>"; };
 		FFDC739F26DF94DC00C1F0D0 /* focusstate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = focusstate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDC73A226DF94DC00C1F0D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDC73A426DF94DC00C1F0D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 		FFDC739626DF94DC00C1F0D0 = {
 			isa = PBXGroup;
 			children = (
+				FFD9F4C226E0AA1300C74C49 /* swift-focuser */,
 				FFDC73A126DF94DC00C1F0D0 /* focusstate */,
 				FFDC73A026DF94DC00C1F0D0 /* Products */,
 			);

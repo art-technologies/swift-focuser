@@ -18,7 +18,7 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
 }
 
 public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier {
-    @Binding var focusedField: Value
+    @Binding var focusedField: Value?
     var equals: Value
     @State var observer = TextFieldObserver()
     
@@ -29,7 +29,7 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 
                 /// when user taps return we navigate to next responder
                 observer.onReturnTap = {
-                    focusedField = focusedField.next
+                    focusedField = focusedField?.next ?? Value.last
                     
                     if equals.hashValue == Value.last.hashValue {
                         tf.resignFirstResponder()
