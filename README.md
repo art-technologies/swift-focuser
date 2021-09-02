@@ -1,6 +1,6 @@
 # Focuser
 
-Focuser allows to focus SwiftUI text fields dynamically and implements ability move go through the form using Keyboard for iOS 13 and iOS 14. Implementation is designed to follow [Apple `@FocusState`](https://developer.apple.com/documentation/swiftui/focusstate) property wrapper. Since most of us cannot update our apps to serve iOS 15 exclusively `Focuser` will provide an easy way to accomplish the same thing.
+Focuser allows to focus SwiftUI text fields dynamically and implements ability move go through the form using Keyboard for iOS 13 and iOS 14. Implementation is modeled to follow [Apple `@FocusState`](https://developer.apple.com/documentation/swiftui/focusstate) property wrapper however instead of however instead of `@FocusState` we use `@FocusStateLegacy` and for `.focused(...)` we use `.focusedLegacy(...)`. Since most of us cannot update our apps to serve iOS 15 exclusively `Focuser` will provide an easy way to change first responder and connect to keyboard "next"/"done" buttons.
 
 ## Preview
 
@@ -26,11 +26,11 @@ To use Focuser you first need to `import Focuser` and define an `enum` correspon
 import Focuser
 
 enum FormFields {
-    case none, username, password, name
+    case username, password, name
 }
 ```
 
-`.none` is a special case used to reasign first responder. Since Focuser allows to focus keyboard to the next text fields using keybaord we have to provide additional information of what the next field should be. We provide this using extension on our struct comforming to `FocusStateCompliant` protocol. In addition of providing computed variable `next` we also provide `last`. This indicates to Focuser when it should show "done" keyboard button instead of "next".
+Since Focuser allows to focus keyboard to the next text fields using keybaord we have to provide additional information of what the next field should be. We provide this using extension on our struct comforming to `FocusStateCompliant` protocol. In addition of providing computed variable `next` we also provide `last`. This indicates to Focuser when it should show "done" keyboard button instead of "next". To resign first responder (hide keyboard) set your `focusedField` to `nil`.
 
 ```swift
 extension FormFields: FocusStateCompliant {
@@ -39,13 +39,13 @@ extension FormFields: FocusStateCompliant {
         .name
     }
 
-    var next: FormFields {
+    var next: FormFields? {
         switch self {
         case .username:
             return .password
         case .password:
             return .name
-        default: return .none
+        default: return nil
         }
     }
 }
@@ -55,7 +55,7 @@ Finally we can build our form
 
 ```swift
 struct ContentView: View {
-    @FocusStateLegacy var focusedField: FormFields = .username
+    @FocusStateLegacy var focusedField: FormFields?
     @State var username = ""
     @State var password = ""
     @State var name = ""
@@ -72,7 +72,7 @@ struct ContentView: View {
                 .focusedLegacy($focusedField, equals: .name)
 
             Button(action: {
-                focusedField = .password
+                focusedField = FormFields.password
             }) {
                 Text("Focus Password")
             }
@@ -95,6 +95,15 @@ TextField("Username", text: $username)
    .cornerRadius(8)
    .focusedLegacy($focusedField, equals: .username)
 ```
+
+## Comparison to iOS 15 `@FocusState`
+
+The API is analogous and our property wrapper has exactly the same definition. If you ever decide to switch to iOS 15 wrapper, all you need to do is replace
+
+`@FocusStateLegacy` -> `@FocusState`
+`.focusedLegacy(...)` -> `.focused(...)`
+
+However, Focuser additionally offers to show different keyboard return button such as "next" or "done" based on where you are in the form.
 
 ## To do
 
