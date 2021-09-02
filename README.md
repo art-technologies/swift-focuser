@@ -101,6 +101,7 @@ TextField("Username", text: $username)
 The API is analogous and our property wrapper has exactly the same definition. If you ever decide to switch to iOS 15 wrapper, all you need to do is replace
 
 `@FocusStateLegacy` -> `@FocusState`
+
 `.focusedLegacy(...)` -> `.focused(...)`
 
 However, Focuser additionally offers to show different keyboard return button such as "next" or "done" based on where you are in the form.
