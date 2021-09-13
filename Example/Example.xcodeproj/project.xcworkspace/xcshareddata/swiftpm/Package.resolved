@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Focuser",
-        "repositoryURL": "git@github.com:art-technologies/swift-focuser.git",
-        "state": {
-          "branch": null,
-          "revision": "077c3c6f5e032ad4a752b085533e1cb7a3e59751",
-          "version": "0.1.0"
-        }
-      },
-      {
         "package": "Introspect",
         "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
         "state": {

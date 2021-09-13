@@ -52,4 +52,3 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
             })
     }
 }
-
