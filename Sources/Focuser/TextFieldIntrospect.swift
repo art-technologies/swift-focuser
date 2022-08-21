@@ -66,6 +66,9 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
     
     public func body(content: Content) -> some View {
         content
+            .onWillDisappear {
+                focusedField = nil
+            }
             .introspectTextField { tf in
                 if !(tf.delegate is TextFieldObserver) {
                     observer.forwardToDelegate = tf.delegate
@@ -74,7 +77,12 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 
                 /// when user taps return we navigate to next responder
                 observer.onReturnTap = {
-                    focusedField = focusedField?.next ?? Value.last
+                    focusedField = focusedField?.next
+                    
+                    if focusedField == nil {
+                        tf.resignFirstResponder()
+                    }
+                    
                 }
 
                 /// to show kayboard with `next` or `return`
@@ -89,7 +97,7 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 }
             }
             .simultaneousGesture(TapGesture().onEnded {
-              focusedField = equals
+                focusedField = equals
             })
     }
 }
