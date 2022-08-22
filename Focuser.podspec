@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
 
   s.homepage         = 'https://github.com/art-technologies/swift-focuser'
   s.author           = { 'art-technologies' => 'augustinas.malinauskas@arttechnologies.co' }
-  s.source           = { :git => 'https://github.com/mhkashizadeh/swift-focuser.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/art-technologies/swift-focuser.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '13.0'
   s.swift_version = '5.0'
