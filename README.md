@@ -16,6 +16,13 @@ We are going to maintain Focuser and extend its functionality in the near future
 git@github.com:art-technologies/swift-focuser.git
 ```
 
+### CocoaPods
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate `Focuser` into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+pod 'Focuser', :git => 'https://github.com/art-technologies/swift-focuser.git'
+```
+
 ## Example
 
 Feel free to download full Xcode example project in `Example` folder.
