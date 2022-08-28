@@ -93,7 +93,11 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 }
                 
                 if focusedField == equals {
-                    tf.becomeFirstResponder()
+                    if tf.isEnabled {
+                        tf.becomeFirstResponder()
+                    } else {
+                        focusedField = focusedField?.next
+                    }
                 }
             }
             .simultaneousGesture(TapGesture().onEnded {
