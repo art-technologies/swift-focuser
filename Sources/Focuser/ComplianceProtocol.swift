@@ -8,13 +8,13 @@
 import Foundation
 
 public protocol FocusStateCompliant: Hashable {
-    static var last: Self { get }
+    var last: Self { get }
     var next: Self? { get }
 }
 
 public extension FocusStateCompliant where Self: CaseIterable, AllCases: BidirectionalCollection {
 
-    static var last: Self {
+    var last: Self {
         return Self.allCases.last! //swiftlint:disable:this force_unwrapping
     }
 
