@@ -10,6 +10,7 @@ import Introspect
 
 class TextFieldObserver: NSObject, UITextFieldDelegate {
     var onReturnTap: () -> () = {}
+    var didBeginEditing: (() -> Void)?
     weak var forwardToDelegate: UITextFieldDelegate?
     
     @available(iOS 2.0, *)
@@ -19,6 +20,7 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
 
     @available(iOS 2.0, *)
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        didBeginEditing?()
         forwardToDelegate?.textFieldDidBeginEditing?(textField)
     }
 
@@ -76,6 +78,11 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 observer.onReturnTap = {
                     focusedField = focusedField?.next ?? Value.last
                 }
+                observer.didBeginEditing = {
+                    if focusedField != equals {
+                        focusedField = equals
+                    }
+                }
 
                 /// to show kayboard with `next` or `return`
                 if equals.hashValue == Value.last.hashValue {
@@ -85,11 +92,15 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 }
                 
                 if focusedField == equals {
-                    tf.becomeFirstResponder()
+                    if !tf.isFirstResponder {
+                        tf.becomeFirstResponder()
+                    }
                 }
             }
             .simultaneousGesture(TapGesture().onEnded {
-              focusedField = equals
+                if focusedField != equals {
+                    focusedField = equals
+                }
             })
     }
 }
