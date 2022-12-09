@@ -8,8 +8,9 @@
 import SwiftUI
 import Introspect
 
-class TextFieldObserver: NSObject, UITextFieldDelegate {
-    var onReturnTap: () -> () = {}
+class TextFieldObserver: NSObject, UITextFieldDelegate, ObservableObject {
+    var onReturnTap: () -> () = { }
+    var onDidBeginEditing: () -> () = { }
     weak var forwardToDelegate: UITextFieldDelegate?
     
     @available(iOS 2.0, *)
@@ -19,6 +20,7 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
 
     @available(iOS 2.0, *)
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        onDidBeginEditing()
         forwardToDelegate?.textFieldDidBeginEditing?(textField)
     }
 
@@ -57,6 +59,21 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
         onReturnTap()
         return forwardToDelegate?.textFieldShouldReturn?(textField) ?? true
     }
+    
+    @available(iOS 16.0, *)
+    func textField(_ textField: UITextField, editMenuForCharactersIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
+        forwardToDelegate?.textField?(textField, editMenuForCharactersIn: range, suggestedActions: suggestedActions)
+    }
+
+    @available(iOS 16.0, *)
+    func textField(_ textField: UITextField, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        forwardToDelegate?.textField?(textField, willPresentEditMenuWith: animator)
+    }
+    
+    @available(iOS 16.0, *)
+    func textField(_ textField: UITextField, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        forwardToDelegate?.textField?(textField, willDismissEditMenuWith: animator)
+    }
 }
 
 public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier {
@@ -73,6 +90,10 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 if !(tf.delegate is TextFieldObserver) {
                     observer.forwardToDelegate = tf.delegate
                     tf.delegate = observer
+                }
+                
+                observer.onDidBeginEditing = {
+                    focusedField = equals
                 }
                 
                 /// when user taps return we navigate to next responder
@@ -100,8 +121,5 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                     }
                 }
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                focusedField = equals
-            })
     }
 }
