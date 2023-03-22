@@ -98,6 +98,7 @@ public struct FocusModifierTextEditor<Value: FocusStateCompliant & Hashable>: Vi
             .introspectTextView { textView in
                 if !(textView.delegate is TextViewObserver) {
                     observer.forwardToDelegate = textView.delegate
+                    observer.ownerTextView = textView
                     textView.delegate = observer
                 }
                 
