@@ -11,7 +11,6 @@ import SwiftUI
 public typealias LifeCycleEventHandler = ((LifeCycleEvent) -> Void)
 
 public enum LifeCycleEvent {
-    case viewDidLoad(UIViewController)
     case viewWillAppear(UIViewController)
     case viewDidAppear(UIViewController)
     case viewWillDisappear(UIViewController)
@@ -44,11 +43,6 @@ struct ViewControllerLifeCycleHandler: UIViewControllerRepresentable {
             fatalError("init(coder:) has not been implemented")
         }
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            onLifeCycleEvent(.viewDidLoad(self))
-        }
-        
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             onLifeCycleEvent(.viewWillAppear(self))
@@ -71,6 +65,27 @@ struct ViewControllerLifeCycleHandler: UIViewControllerRepresentable {
     }
 }
 
+struct ViewDidLoadModifier: ViewModifier {
+
+    @State private var didLoad = false
+    private let action: (() -> Void)?
+
+    init(perform action: (() -> Void)? = nil) {
+        self.action = action
+    }
+
+    func body(content: Content) -> some View {
+        content.onAppear {
+            if didLoad == false {
+                didLoad = true
+                action?()
+            }
+        }
+    }
+
+}
+
+
 public extension View {
     
     func onLifeCycleEvent(perform: @escaping LifeCycleEventHandler) -> some View {
@@ -78,15 +93,7 @@ public extension View {
     }
     
     func onDidLoad(perform: @escaping (() -> Void)) -> some View {
-        onLifeCycleEvent { event in
-            switch event {
-            case .viewDidLoad:
-                perform()
-                
-            default:
-                break
-            }
-        }
+        modifier(ViewDidLoadModifier(perform: perform))
     }
     
     func onWillAppear(perform: @escaping (() -> Void)) -> some View {
