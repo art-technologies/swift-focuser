@@ -11,10 +11,10 @@ import SwiftUI
 public typealias LifeCycleEventHandler = ((LifeCycleEvent) -> Void)
 
 public enum LifeCycleEvent {
-    case viewWillAppear(UIViewController)
-    case viewDidAppear(UIViewController)
-    case viewWillDisappear(UIViewController)
-    case viewDidDisappear(UIViewController)
+    case viewWillAppear
+    case viewDidAppear
+    case viewWillDisappear
+    case viewDidDisappear
 }
 
 struct ViewControllerLifeCycleHandler: UIViewControllerRepresentable {
@@ -45,22 +45,22 @@ struct ViewControllerLifeCycleHandler: UIViewControllerRepresentable {
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            onLifeCycleEvent(.viewWillAppear(self))
+            onLifeCycleEvent(.viewWillAppear)
         }
         
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
-            onLifeCycleEvent(.viewDidAppear(self))
+            onLifeCycleEvent(.viewDidAppear)
         }
 
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            onLifeCycleEvent(.viewWillDisappear(self))
+            onLifeCycleEvent(.viewWillDisappear)
         }
         
         override func viewDidDisappear(_ animated: Bool) {
             super.viewDidDisappear(animated)
-            onLifeCycleEvent(.viewDidDisappear(self))
+            onLifeCycleEvent(.viewDidDisappear)
         }
     }
 }
