@@ -73,11 +73,11 @@ struct ViewControllerLifeCycleHandler: UIViewControllerRepresentable {
 
 public extension View {
     
-    func onLifeCycleEvent(_ perform: @escaping LifeCycleEventHandler) -> some View {
+    func onLifeCycleEvent(perform: @escaping LifeCycleEventHandler) -> some View {
         background(ViewControllerLifeCycleHandler(onLifeCycleEvent: perform))
     }
     
-    func onDidLoad(_ perform: @escaping (() -> Void)) -> some View {
+    func onDidLoad(perform: @escaping (() -> Void)) -> some View {
         onLifeCycleEvent { event in
             switch event {
             case .viewDidLoad:
@@ -89,7 +89,7 @@ public extension View {
         }
     }
     
-    func onWillAppear(_ perform: @escaping (() -> Void)) -> some View {
+    func onWillAppear(perform: @escaping (() -> Void)) -> some View {
         onLifeCycleEvent { event in
             switch event {
             case .viewWillAppear:
@@ -101,7 +101,7 @@ public extension View {
         }
     }
     
-    func onDidAppear(_ perform: @escaping (() -> Void)) -> some View {
+    func onDidAppear(perform: @escaping (() -> Void)) -> some View {
         onLifeCycleEvent { event in
             switch event {
             case .viewDidAppear:
@@ -113,7 +113,7 @@ public extension View {
         }
     }
     
-    func onWillDisappear(_ perform: @escaping (() -> Void)) -> some View {
+    func onWillDisappear(perform: @escaping (() -> Void)) -> some View {
         onLifeCycleEvent { event in
             switch event {
             case .viewWillDisappear:
@@ -125,7 +125,7 @@ public extension View {
         }
     }
     
-    func onDidDisappear(_ perform: @escaping (() -> Void)) -> some View {
+    func onDidDisappear(perform: @escaping (() -> Void)) -> some View {
         onLifeCycleEvent { event in
             switch event {
             case .viewDidDisappear:
