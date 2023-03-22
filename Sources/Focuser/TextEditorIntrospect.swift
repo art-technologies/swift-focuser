@@ -10,6 +10,7 @@ import SwiftUI
 class TextViewObserver: NSObject, UITextViewDelegate, ObservableObject {
     var onDidBeginEditing: () -> () = { }
     weak var forwardToDelegate: UITextViewDelegate?
+    weak var ownerTextView: UITextView?
     
     @available(iOS 2.0, *)
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -94,18 +95,32 @@ public struct FocusModifierTextEditor<Value: FocusStateCompliant & Hashable>: Vi
     
     public func body(content: Content) -> some View {
         content
-            .introspectTextView { tv in
-                if !(tv.delegate is TextViewObserver) {
-                    observer.forwardToDelegate = tv.delegate
-                    tv.delegate = observer
-                }
-                
-                if focusedField == equals {
-                    tv.becomeFirstResponder()
+            .introspectTextView { textView in
+                if !(textView.delegate is TextViewObserver) {
+                    observer.forwardToDelegate = textView.delegate
+                    textView.delegate = observer
                 }
                 
                 observer.onDidBeginEditing = {
                     focusedField = equals
+                }
+                
+                if focusedField == equals {
+                    if textView.isUserInteractionEnabled {
+                        textView.becomeFirstResponder()
+                    } else {
+                        focusedField = focusedField?.next
+                    }
+                }
+            }
+            .onChange(of: focusedField) { focusedField in
+                if focusedField == nil {
+                    observer.ownerTextView?.resignFirstResponder()
+                }
+            }
+            .onWillDisappear {
+                if focusedField != nil {
+                    focusedField = nil
                 }
             }
     }

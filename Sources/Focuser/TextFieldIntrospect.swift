@@ -11,6 +11,7 @@ import Introspect
 class TextFieldObserver: NSObject, UITextFieldDelegate, ObservableObject {
     var onReturnTap: () -> () = { }
     var onDidBeginEditing: () -> () = { }
+    weak var ownerTextField: UITextField?
     weak var forwardToDelegate: UITextFieldDelegate?
     
     @available(iOS 2.0, *)
@@ -79,46 +80,52 @@ class TextFieldObserver: NSObject, UITextFieldDelegate, ObservableObject {
 public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier {
     @Binding var focusedField: Value?
     var equals: Value
-    @State var observer = TextFieldObserver()
+    @StateObject var observer = TextFieldObserver()
     
     public func body(content: Content) -> some View {
         content
-            .onWillDisappear {
-                focusedField = nil
-            }
-            .introspectTextField { tf in
-                if !(tf.delegate is TextFieldObserver) {
-                    observer.forwardToDelegate = tf.delegate
-                    tf.delegate = observer
+            .introspectTextField { textField in
+                if !(textField.delegate is TextFieldObserver) {
+                    observer.forwardToDelegate = textField.delegate
+                    observer.ownerTextField = textField
+                    textField.delegate = observer
                 }
                 
                 observer.onDidBeginEditing = {
                     focusedField = equals
                 }
                 
-                /// when user taps return we navigate to next responder
                 observer.onReturnTap = {
                     focusedField = focusedField?.next
                     
                     if focusedField == nil {
-                        tf.resignFirstResponder()
+                        textField.resignFirstResponder()
                     }
                     
                 }
-
-                /// to show kayboard with `next` or `return`
-                if equals.hashValue == focusedField?.last.hashValue {
-                    tf.returnKeyType = .done
-                } else {
-                    tf.returnKeyType = .next
-                }
                 
                 if focusedField == equals {
-                    if tf.isEnabled {
-                        tf.becomeFirstResponder()
+                    if textField.isEnabled {
+                        textField.becomeFirstResponder()
                     } else {
                         focusedField = focusedField?.next
                     }
+                }
+                
+                if equals.hashValue == Value.last.hashValue {
+                    textField.returnKeyType = .done
+                } else {
+                    textField.returnKeyType = .next
+                }
+            }
+            .onChange(of: focusedField) { focusedField in
+                if focusedField == nil {
+                    observer.ownerTextField?.resignFirstResponder()
+                }
+            }
+            .onWillDisappear {
+                if focusedField != nil {
+                    focusedField = nil
                 }
             }
     }
