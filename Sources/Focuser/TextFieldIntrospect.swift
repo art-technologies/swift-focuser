@@ -8,8 +8,10 @@
 import SwiftUI
 import Introspect
 
-class TextFieldObserver: NSObject, UITextFieldDelegate {
-    var onReturnTap: () -> () = {}
+class TextFieldObserver: NSObject, UITextFieldDelegate, ObservableObject {
+    var onReturnTap: () -> () = { }
+    var onDidBeginEditing: () -> () = { }
+    weak var ownerTextField: UITextField?
     weak var forwardToDelegate: UITextFieldDelegate?
     
     @available(iOS 2.0, *)
@@ -19,6 +21,7 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
 
     @available(iOS 2.0, *)
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        onDidBeginEditing()
         forwardToDelegate?.textFieldDidBeginEditing?(textField)
     }
 
@@ -57,39 +60,73 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
         onReturnTap()
         return forwardToDelegate?.textFieldShouldReturn?(textField) ?? true
     }
+    
+    @available(iOS 16.0, *)
+    func textField(_ textField: UITextField, editMenuForCharactersIn range: NSRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
+        forwardToDelegate?.textField?(textField, editMenuForCharactersIn: range, suggestedActions: suggestedActions)
+    }
+
+    @available(iOS 16.0, *)
+    func textField(_ textField: UITextField, willPresentEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        forwardToDelegate?.textField?(textField, willPresentEditMenuWith: animator)
+    }
+    
+    @available(iOS 16.0, *)
+    func textField(_ textField: UITextField, willDismissEditMenuWith animator: UIEditMenuInteractionAnimating) {
+        forwardToDelegate?.textField?(textField, willDismissEditMenuWith: animator)
+    }
 }
 
 public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier {
     @Binding var focusedField: Value?
     var equals: Value
-    @State var observer = TextFieldObserver()
+    @StateObject var observer = TextFieldObserver()
     
     public func body(content: Content) -> some View {
         content
-            .introspectTextField { tf in
-                if !(tf.delegate is TextFieldObserver) {
-                    observer.forwardToDelegate = tf.delegate
-                    tf.delegate = observer
+            .introspectTextField { textField in
+                if !(textField.delegate is TextFieldObserver) {
+                    observer.forwardToDelegate = textField.delegate
+                    observer.ownerTextField = textField
+                    textField.delegate = observer
                 }
                 
-                /// when user taps return we navigate to next responder
-                observer.onReturnTap = {
-                    focusedField = focusedField?.next ?? Value.last
+                observer.onDidBeginEditing = {
+                    focusedField = equals
                 }
-
-                /// to show kayboard with `next` or `return`
-                if equals.hashValue == Value.last.hashValue {
-                    tf.returnKeyType = .done
-                } else {
-                    tf.returnKeyType = .next
+                
+                observer.onReturnTap = {
+                    focusedField = focusedField?.next
+                    
+                    if focusedField == nil {
+                        textField.resignFirstResponder()
+                    }
+                    
                 }
                 
                 if focusedField == equals {
-                    tf.becomeFirstResponder()
+                    if textField.isEnabled {
+                        textField.becomeFirstResponder()
+                    } else {
+                        focusedField = focusedField?.next
+                    }
+                }
+                
+                if equals.hashValue == Value.last.hashValue {
+                    textField.returnKeyType = .done
+                } else {
+                    textField.returnKeyType = .next
                 }
             }
-            .simultaneousGesture(TapGesture().onEnded {
-              focusedField = equals
-            })
+            .onChange(of: focusedField) { focusedField in
+                if focusedField == nil {
+                    observer.ownerTextField?.resignFirstResponder()
+                }
+            }
+            .onWillDisappear {
+                if focusedField != nil {
+                    focusedField = nil
+                }
+            }
     }
 }

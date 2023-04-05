@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Focuser",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v14),
     ],
     products: [
         .library(
