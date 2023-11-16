@@ -1,17 +1,17 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Augustinas Malinauskas on 01/09/2021.
 //
 
 import SwiftUI
-import Introspect
+import SwiftUIIntrospect
 
 class TextFieldObserver: NSObject, UITextFieldDelegate {
-    var onReturnTap: () -> () = {}
+    var onReturnTap: () -> Void = {}
     weak var forwardToDelegate: UITextFieldDelegate?
-    
+
     @available(iOS 2.0, *)
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         forwardToDelegate?.textFieldShouldBeginEditing?(textField) ?? true
@@ -41,7 +41,7 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         forwardToDelegate?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) ?? true
     }
-    
+
     @available(iOS 13.0, *)
     func textFieldDidChangeSelection(_ textField: UITextField) {
         forwardToDelegate?.textFieldDidChangeSelection?(textField)
@@ -51,7 +51,7 @@ class TextFieldObserver: NSObject, UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         forwardToDelegate?.textFieldShouldClear?(textField) ?? true
     }
-    
+
     @available(iOS 2.0, *)
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         onReturnTap()
@@ -63,15 +63,15 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
     @Binding var focusedField: Value?
     var equals: Value
     @State var observer = TextFieldObserver()
-    
+
     public func body(content: Content) -> some View {
         content
-            .introspectTextField { tf in
+            .introspect(.textField, on: .iOS(.v13, .v14, .v15, .v16, .v17)) { tf in
                 if !(tf.delegate is TextFieldObserver) {
                     observer.forwardToDelegate = tf.delegate
                     tf.delegate = observer
                 }
-                
+
                 /// when user taps return we navigate to next responder
                 observer.onReturnTap = {
                     focusedField = focusedField?.next ?? Value.last
@@ -83,13 +83,15 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                 } else {
                     tf.returnKeyType = .next
                 }
-                
-                if focusedField == equals {
+
+                if focusedField == equals,
+                   tf.isFirstResponder == false
+                {
                     tf.becomeFirstResponder()
                 }
             }
             .simultaneousGesture(TapGesture().onEnded {
-              focusedField = equals
+                focusedField = equals
             })
     }
 }

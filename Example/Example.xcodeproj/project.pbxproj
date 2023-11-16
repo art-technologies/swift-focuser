@@ -3,25 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE65305F2B05D59900922369 /* Focuser in Frameworks */ = {isa = PBXBuildFile; productRef = BE65305E2B05D59900922369 /* Focuser */; };
+		BE6530612B05DD0800922369 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6530602B05DD0800922369 /* TextEditorView.swift */; };
+		BE6530632B05E2E800922369 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6530622B05E2E800922369 /* TextFieldView.swift */; };
+		BE6530652B05E2FB00922369 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6530642B05E2FB00922369 /* RootView.swift */; };
 		FFDC73A326DF94DC00C1F0D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC73A226DF94DC00C1F0D0 /* AppDelegate.swift */; };
 		FFDC73A526DF94DC00C1F0D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC73A426DF94DC00C1F0D0 /* SceneDelegate.swift */; };
-		FFDC73A726DF94DC00C1F0D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC73A626DF94DC00C1F0D0 /* ContentView.swift */; };
 		FFDC73A926DF94DE00C1F0D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDC73A826DF94DE00C1F0D0 /* Assets.xcassets */; };
 		FFDC73AC26DF94DE00C1F0D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFDC73AB26DF94DE00C1F0D0 /* Preview Assets.xcassets */; };
 		FFDC73AF26DF94DE00C1F0D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFDC73AD26DF94DE00C1F0D0 /* LaunchScreen.storyboard */; };
-		FFDC73C626DFE61F00C1F0D0 /* Focuser in Frameworks */ = {isa = PBXBuildFile; productRef = FFDC73C526DFE61F00C1F0D0 /* Focuser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FF8D789526E1FC33006287E9 /* swift-focuser */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "swift-focuser"; path = ..; sourceTree = "<group>"; };
+		BE6530602B05DD0800922369 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
+		BE6530622B05E2E800922369 /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		BE6530642B05E2FB00922369 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		FFDC739F26DF94DC00C1F0D0 /* focusstate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = focusstate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDC73A226DF94DC00C1F0D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFDC73A426DF94DC00C1F0D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FFDC73A626DF94DC00C1F0D0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FFDC73A826DF94DE00C1F0D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFDC73AB26DF94DE00C1F0D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FFDC73AE26DF94DE00C1F0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -33,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFDC73C626DFE61F00C1F0D0 /* Focuser in Frameworks */,
+				BE65305F2B05D59900922369 /* Focuser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,7 +46,6 @@
 		FFDC739626DF94DC00C1F0D0 = {
 			isa = PBXGroup;
 			children = (
-				FF8D789526E1FC33006287E9 /* swift-focuser */,
 				FFDC73A126DF94DC00C1F0D0 /* focusstate */,
 				FFDC73A026DF94DC00C1F0D0 /* Products */,
 			);
@@ -62,7 +64,9 @@
 			children = (
 				FFDC73A226DF94DC00C1F0D0 /* AppDelegate.swift */,
 				FFDC73A426DF94DC00C1F0D0 /* SceneDelegate.swift */,
-				FFDC73A626DF94DC00C1F0D0 /* ContentView.swift */,
+				BE6530642B05E2FB00922369 /* RootView.swift */,
+				BE6530622B05E2E800922369 /* TextFieldView.swift */,
+				BE6530602B05DD0800922369 /* TextEditorView.swift */,
 				FFDC73A826DF94DE00C1F0D0 /* Assets.xcassets */,
 				FFDC73AD26DF94DE00C1F0D0 /* LaunchScreen.storyboard */,
 				FFDC73B026DF94DE00C1F0D0 /* Info.plist */,
@@ -96,7 +100,7 @@
 			);
 			name = focusstate;
 			packageProductDependencies = (
-				FFDC73C526DFE61F00C1F0D0 /* Focuser */,
+				BE65305E2B05D59900922369 /* Focuser */,
 			);
 			productName = focusstate;
 			productReference = FFDC739F26DF94DC00C1F0D0 /* focusstate.app */;
@@ -126,7 +130,7 @@
 			);
 			mainGroup = FFDC739626DF94DC00C1F0D0;
 			packageReferences = (
-				FFDC73C426DFE61F00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */,
+				BE65305D2B05D59900922369 /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = FFDC73A026DF94DC00C1F0D0 /* Products */;
 			projectDirPath = "";
@@ -156,8 +160,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFDC73A326DF94DC00C1F0D0 /* AppDelegate.swift in Sources */,
+				BE6530632B05E2E800922369 /* TextFieldView.swift in Sources */,
 				FFDC73A526DF94DC00C1F0D0 /* SceneDelegate.swift in Sources */,
-				FFDC73A726DF94DC00C1F0D0 /* ContentView.swift in Sources */,
+				BE6530612B05DD0800922369 /* TextEditorView.swift in Sources */,
+				BE6530652B05E2FB00922369 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,13 +304,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"focusstate/Preview Content\"";
+				DEVELOPMENT_TEAM = RLK76T8Y89;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = focusstate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = at.focusstate;
+				PRODUCT_BUNDLE_IDENTIFIER = org.c61a76ee8f8cc7af.focusstate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -318,13 +326,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"focusstate/Preview Content\"";
+				DEVELOPMENT_TEAM = RLK76T8Y89;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = focusstate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = at.focusstate;
+				PRODUCT_BUNDLE_IDENTIFIER = org.c61a76ee8f8cc7af.focusstate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -354,21 +364,16 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		FFDC73C426DFE61F00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:art-technologies/swift-focuser.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		BE65305D2B05D59900922369 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FFDC73C526DFE61F00C1F0D0 /* Focuser */ = {
+		BE65305E2B05D59900922369 /* Focuser */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FFDC73C426DFE61F00C1F0D0 /* XCRemoteSwiftPackageReference "swift-focuser" */;
 			productName = Focuser;
 		};
 /* End XCSwiftPackageProductDependency section */
